@@ -60,6 +60,33 @@ class Solution {
   }
 
   /**
+   * 删除链表指定值
+   * 
+   * @param head
+   * @param value
+   * @return
+   */
+  public Node RemoveValue(Node head, int value) {
+    while (head != null) {
+      if (head.value != value)// 来到第一个不需要删的位置
+        break;
+      head = head.next;
+    }
+
+    Node pre = head, cur = head;
+    while (cur != null) {
+      if (cur.value == value)
+        pre.next = cur.next; // 如果cur是需要删的值，则将此点与链表断链
+      else {
+        pre = cur;
+      }
+
+      cur = cur.next;
+    }
+    return head;
+  }
+
+  /**
    * 系统自带反转单向链表（TEST）
    * 
    * @param head

@@ -50,6 +50,27 @@ class Solution {
     return pre;
   }
 
+  /**
+   * 链表删除指定值
+   */
+  Node *remove_value(Node *head, int value) {
+    while (head != nullptr) {
+      if (head->value != value) break;
+
+      head = head->next;
+    }
+
+    Node *pre = head, *cur = head;
+    while (cur != nullptr) {
+      if (cur->value == value)
+        pre->next = cur->next;
+      else
+        pre = cur;
+      cur = cur->next;
+    }
+    return head;
+  }
+
   // ============ TEST ============
   /**
    * 反转单向链表（TEST）
