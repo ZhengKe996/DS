@@ -2,7 +2,7 @@ package stack;
 
 import java.util.Stack;
 
-class Solution {
+class Solution2 {
 
   private static class TwoStacksQueue {
     public Stack<Integer> push;

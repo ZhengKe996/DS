@@ -1,8 +1,8 @@
 package merge_sort;
 
-class Solution3 {
-  public int ReverPairNumber(int[] arr) {
-    if (arr == null || arr.length < 0)
+class Solution4 {
+  public int ReversePairs(int[] arr) {
+    if (arr == null || arr.length < 2)
       return 0;
     return process(arr, 0, arr.length - 1);
   }
@@ -10,51 +10,57 @@ class Solution3 {
   private int process(int[] arr, int l, int r) {
     if (l == r)
       return 0;
-
     int mid = l + ((r - l) >> 1);
     return process(arr, l, mid) + process(arr, mid + 1, r) + merge(arr, l, mid, r);
   }
 
   private int merge(int[] arr, int l, int mid, int r) {
-    int[] help = new int[r - l + 1];
-    int i = help.length - 1, p1 = mid, p2 = r, res = 0;
-    while (p1 >= l && p2 >= mid) {
-      res += arr[p1] > arr[p2] ? (p2 - mid) : 0;
-      help[i--] = arr[p1] > arr[p2] ? arr[p1--] : arr[p2--];
+    int ans = 0, windowR = mid + 1;
+    for (int i = l; i <= mid; i++) {
+      while (windowR <= r && (long) arr[i] > (long) arr[windowR] * 2) {
+        windowR++;
+      }
+      ans += windowR - mid - 1;
     }
 
-    while (p1 >= l)
-      help[i--] = arr[p1--];
-    while (p2 > mid)
-      help[i--] = arr[p2--];
-
-    for (i = 0; i < help.length; i++)
+    int[] help = new int[r - l + 1];
+    int i = 0, p1 = l, p2 = mid + 1;
+    while (p1 <= mid && p2 <= r) {
+      help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
+    }
+    while (p1 <= mid) {
+      help[i++] = arr[p1++];
+    }
+    while (p2 <= r) {
+      help[i++] = arr[p2++];
+    }
+    for (i = 0; i < help.length; i++) {
       arr[l + i] = help[i];
-
-    return res;
+    }
+    return ans;
   }
 
-  // ======== TEST ========
+  // =============== TEST ===============
   public int comparator(int[] arr) {
     int ans = 0;
     for (int i = 0; i < arr.length; i++) {
       for (int j = i + 1; j < arr.length; j++) {
-        if (arr[i] > arr[j])
+        if (arr[i] > (arr[j] << 1))
           ans++;
       }
     }
     return ans;
   }
 
-  public int[] generateRandomArray(int maxSize, int maxValue) {
+  public static int[] generateRandomArray(int maxSize, int maxValue) {
     int[] arr = new int[(int) ((maxSize + 1) * Math.random())];
     for (int i = 0; i < arr.length; i++) {
-      arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) (maxValue * Math.random());
+      arr[i] = (int) ((maxValue + 1) * Math.random()) - (int) ((maxValue + 1) * Math.random());
     }
     return arr;
   }
 
-  public int[] copyArray(int[] arr) {
+  public static int[] copyArray(int[] arr) {
     if (arr == null) {
       return null;
     }
@@ -65,7 +71,7 @@ class Solution3 {
     return res;
   }
 
-  public boolean isEqual(int[] arr1, int[] arr2) {
+  public static boolean isEqual(int[] arr1, int[] arr2) {
     if ((arr1 == null && arr2 != null) || (arr1 != null && arr2 == null)) {
       return false;
     }
@@ -83,7 +89,7 @@ class Solution3 {
     return true;
   }
 
-  public void printArray(int[] arr) {
+  public static void printArray(int[] arr) {
     if (arr == null) {
       return;
     }
@@ -94,19 +100,19 @@ class Solution3 {
   }
 
   public static void main(String[] args) {
-    Solution3 solution = new Solution3();
+    Solution4 solution = new Solution4();
     int testTime = 500000, maxSize = 100, maxValue = 100;
-    System.out.println("Begin");
+    System.out.println("测试开始");
     for (int i = 0; i < testTime; i++) {
-      int[] arr1 = solution.generateRandomArray(maxSize, maxValue);
-      int[] arr2 = solution.copyArray(arr1);
-      if (solution.ReverPairNumber(arr1) != solution.comparator(arr2)) {
+      int[] arr1 = generateRandomArray(maxSize, maxValue);
+      int[] arr2 = copyArray(arr1);
+      if (solution.ReversePairs(arr1) != solution.comparator(arr2)) {
         System.out.println("Oops!");
-        solution.printArray(arr1);
-        solution.printArray(arr2);
+        printArray(arr1);
+        printArray(arr2);
         break;
       }
     }
-    System.out.println("Finish!");
+    System.out.println("测试结束");
   }
 }

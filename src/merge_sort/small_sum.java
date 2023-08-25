@@ -1,6 +1,6 @@
 package merge_sort;
 
-class Solution {
+class Solution2 {
 
   /**
    * 小和问题
@@ -99,7 +99,7 @@ class Solution {
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution2 solution = new Solution2();
     int testTime = 500000, maxSize = 100, maxValue = 100;
     boolean succeed = true;
     for (int i = 0; i < testTime; i++) {
