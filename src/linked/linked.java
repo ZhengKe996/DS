@@ -3,7 +3,7 @@ package linked;
 import java.util.ArrayList;
 import java.util.List;
 
-class Solution {
+class Solution2 {
   private class Node {
     public int value;
     public Node next;
@@ -261,7 +261,7 @@ class Solution {
   }
 
   public static void main(String[] args) {
-    Solution solution = new Solution();
+    Solution2 solution = new Solution2();
     int len = 50;
     int value = 100;
     int testTime = 100000;

@@ -100,7 +100,7 @@ struct MyQueue {
   bool empty() { return queue->empty(); }
 };
 
-class Solution {
+class Solution2 {
  public:
   bool isEqual(int o1, int o2) {
     if (o1 == NULL && o2 != NULL) {
@@ -117,7 +117,7 @@ class Solution {
 };
 
 int main() {
-  Solution solution;
+  Solution2 solution;
   int oneTestDataNum = 100;
   int value = 10000;
   int testTimes = 100000;
