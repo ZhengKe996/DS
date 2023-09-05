@@ -2,12 +2,12 @@ package linked;
 
 import java.util.HashMap;
 
-class Node {
+class NodeR {
   int val;
-  Node next;
-  Node random;
+  NodeR next;
+  NodeR random;
 
-  public Node(int val) {
+  public NodeR(int val) {
     this.val = val;
     this.next = null;
     this.random = null;
@@ -15,11 +15,11 @@ class Node {
 }
 
 class Solution6 {
-  public Node copyRandomList1(Node head) {
-    HashMap<Node, Node> map = new HashMap<>();// key 老节点；value 新节点
-    Node cur = head;
+  public NodeR copyRandomList1(NodeR head) {
+    HashMap<NodeR, NodeR> map = new HashMap<>();// key 老节点；value 新节点
+    NodeR cur = head;
     while (cur != null) {
-      map.put(cur, new Node(cur.val));
+      map.put(cur, new NodeR(cur.val));
       cur = cur.next;
     }
     cur = head;
@@ -36,20 +36,20 @@ class Solution6 {
     return map.get(head);
   }
 
-  public Node copyRandomList2(Node head) {
+  public NodeR copyRandomList2(NodeR head) {
     if (head == null) {
       return null;
     }
-    Node cur = head;
-    Node next = null;
+    NodeR cur = head;
+    NodeR next = null;
     while (cur != null) {
       next = cur.next;
-      cur.next = new Node(cur.val);
+      cur.next = new NodeR(cur.val);
       cur.next.next = next;
       cur = next;
     }
     cur = head;
-    Node copy = null;
+    NodeR copy = null;
     // 依次设置 1' 2' 3' random指针
     while (cur != null) {
       next = cur.next.next;
@@ -57,7 +57,7 @@ class Solution6 {
       copy.random = cur.random != null ? cur.random.next : null;
       cur = next;
     }
-    Node res = head.next;
+    NodeR res = head.next;
     cur = head;
 
     // 分离新老链表
