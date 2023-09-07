@@ -29,7 +29,7 @@ class Solution4 {
 
   private static void pres(Node head, Queue<String> ans) {
     if (head == null)
-      ans.add(null);
+      ans.add("#");
     else {
       ans.add(String.valueOf(head.value));
       pres(head.left, ans);
@@ -51,7 +51,7 @@ class Solution4 {
 
   private static void ins(Node head, Queue<String> ans) {
     if (head == null)
-      ans.add(null);
+      ans.add("#");
     else {
       ins(head.left, ans);
       ans.add(String.valueOf(head.value));
@@ -73,7 +73,7 @@ class Solution4 {
 
   private static void poss(Node head, Queue<String> ans) {
     if (head == null) {
-      ans.add(null);
+      ans.add("#");
     } else {
       poss(head.left, ans);
       poss(head.right, ans);
@@ -96,7 +96,7 @@ class Solution4 {
 
   private static Node preb(Queue<String> list) {
     String value = list.poll();
-    if (value == null)
+    if (value == "#")
       return null;
 
     Node head = new Node(Integer.valueOf(value));
@@ -124,7 +124,7 @@ class Solution4 {
 
   private static Node posb(Stack<String> s) {
     String value = s.pop();
-    if (value == null) {
+    if (value == "#") {
       return null;
     }
     Node head = new Node(Integer.valueOf(value));
@@ -142,7 +142,7 @@ class Solution4 {
   public static Queue<String> levelSerial(Node head) {
     Queue<String> ans = new LinkedList<>();
     if (head == null)
-      ans.add(null);
+      ans.add("#");
     else {
       ans.add(String.valueOf(head.value));
       Queue<Node> queue = new LinkedList<>();
@@ -153,13 +153,13 @@ class Solution4 {
           ans.add(String.valueOf(head.left.value));
           queue.add(head.left);
         } else {
-          ans.add(null);
+          ans.add("#");
         }
         if (head.right != null) {
           ans.add(String.valueOf(head.right.value));
           queue.add(head.right);
         } else {
-          ans.add(null);
+          ans.add("#");
         }
       }
     }
@@ -169,24 +169,24 @@ class Solution4 {
   /**
    * 层序遍历 反序列化
    * 
-   * @param levelList
+   * @param list
    * @return
    */
-  public static Node buildByLevelQueue(Queue<String> levelList) {
-    if (levelList == null || levelList.size() == 0) {
+  public static Node buildByLevelQueue(Queue<String> list) {
+    if (list == null || list.size() == 0)
       return null;
 
-    }
-    Node head = generateNode(levelList.poll());
+    Node head = generateNode(list.poll());
     Queue<Node> queue = new LinkedList<Node>();
     if (head != null) {
       queue.add(head);
     }
+
     Node node = null;
     while (!queue.isEmpty()) {
       node = queue.poll();
-      node.left = generateNode(levelList.poll());
-      node.right = generateNode(levelList.poll());
+      node.left = generateNode(list.poll());
+      node.right = generateNode(list.poll());
       if (node.left != null) {
         queue.add(node.left);
       }
@@ -198,7 +198,7 @@ class Solution4 {
   }
 
   private static Node generateNode(String val) {
-    if (val == null) {
+    if (val == "#") {
       return null;
     }
     return new Node(Integer.valueOf(val));
@@ -276,7 +276,8 @@ class Solution4 {
       Node preBuild = buildByPreQueue(pre);
       Node posBuild = buildByPosQueue(pos);
       Node levelBuild = buildByLevelQueue(level);
-      if (!isSameValueStructure(preBuild, posBuild) || !isSameValueStructure(posBuild, levelBuild)) {
+      if (!isSameValueStructure(preBuild, posBuild) ||
+          !isSameValueStructure(posBuild, levelBuild)) {
         System.out.println("Oops!");
       }
     }
