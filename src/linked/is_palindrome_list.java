@@ -2,15 +2,6 @@ package linked;
 
 import java.util.Stack;
 
-class Node {
-  public int value;
-  public Node next;
-
-  public Node(int data) {
-    this.value = data;
-  }
-}
-
 class Solution4 {
   /**
    * 额外空间复杂度 O(N)
