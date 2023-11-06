@@ -1,23 +1,23 @@
 package dp;
 
 public class min_path_sum {
-  public static int minPathSum1(int[][] m) {
-    if (m == null || m.length == 0 || m[0] == null || m[0].length == 0) {
+  public static int minPathSum1(int[][] matrix) {
+    if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
       return 0;
     }
-    int row = m.length;
-    int col = m[0].length;
+    int row = matrix.length;
+    int col = matrix[0].length;
     int[][] dp = new int[row][col];
-    dp[0][0] = m[0][0];
+    dp[0][0] = matrix[0][0];
     for (int i = 1; i < row; i++)
-      dp[i][0] = dp[i - 1][0] + m[i][0];
+      dp[i][0] = dp[i - 1][0] + matrix[i][0];
 
     for (int j = 1; j < col; j++)
-      dp[0][j] = dp[0][j - 1] + m[0][j];
+      dp[0][j] = dp[0][j - 1] + matrix[0][j];
 
     for (int i = 1; i < row; i++) {
       for (int j = 1; j < col; j++) {
-        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + m[i][j];
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + matrix[i][j];
       }
     }
     return dp[row - 1][col - 1];
@@ -26,24 +26,24 @@ public class min_path_sum {
   /**
    * 空间压缩
    * 
-   * @param m
+   * @param matrix
    * @return
    */
-  public static int minPathSum2(int[][] m) {
-    if (m == null || m.length == 0 || m[0] == null || m[0].length == 0) {
+  public static int dp(int[][] matrix) {
+    if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) {
       return 0;
     }
-    int row = m.length;
-    int col = m[0].length;
+    int row = matrix.length;
+    int col = matrix[0].length;
     int[] arr = new int[col];
-    arr[0] = m[0][0]; // 起点
+    arr[0] = matrix[0][0]; // 起点
     for (int j = 1; j < col; j++) {
-      arr[j] = arr[j - 1] + m[0][j]; // 0列特殊处理
+      arr[j] = arr[j - 1] + matrix[0][j]; // 0列特殊处理
     }
     for (int i = 1; i < row; i++) {
-      arr[0] += m[i][0];
+      arr[0] += matrix[i][0];
       for (int j = 1; j < col; j++) {
-        arr[j] = Math.min(arr[j - 1], arr[j]) + m[i][j];
+        arr[j] = Math.min(arr[j - 1], arr[j]) + matrix[i][j];
       }
     }
 
@@ -77,9 +77,9 @@ public class min_path_sum {
   public static void main(String[] args) {
     int rowSize = 10;
     int colSize = 10;
-    int[][] m = generateRandomMatrix(rowSize, colSize);
-    System.out.println(minPathSum1(m));
-    System.out.println(minPathSum2(m));
+    int[][] matrix = generateRandomMatrix(rowSize, colSize);
+    System.out.println(minPathSum1(matrix));
+    System.out.println(dp(matrix));
 
   }
 }
