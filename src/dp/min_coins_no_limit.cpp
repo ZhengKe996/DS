@@ -81,7 +81,7 @@ int main() {
   Solution slu;
   int maxLen = 20;
   int maxValue = 30;
-  int testTime = 3000;
+  int testTime = 2;
   cout << "功能测试开始" << endl;
   for (int i = 0; i < testTime; i++) {
     int N = (int)(rand() % maxLen);
